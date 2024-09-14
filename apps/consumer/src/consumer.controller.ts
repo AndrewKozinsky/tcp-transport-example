@@ -1,11 +1,11 @@
-import { Controller } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
-@Controller()
-export class AppController {
-  @MessagePattern('plain_text')
-  handlePlainTextMessage(message: string): string {
+@Injectable()
+export class ConsumerService {
+  @MessagePattern('messages_queue')  // Ensure pattern matches
+  handleMessage(message: any) {
     console.log('Received message:', message);
-    return 'Message received: ' + message; // Sends a response back
+    return { ack: 'Message received' };  // Ensure a response is sent back
   }
 }
